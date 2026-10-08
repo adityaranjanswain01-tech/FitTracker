@@ -1,0 +1,62 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'new_password.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="password_page">
+    <div class="password_card">
+
+        {% if validlink %}
+
+        <div class="password_header">
+            <div class="password_icon"></div>
+            <h1>NEW PASSWORD</h1>
+            <p>Create a new password for your account</p>
+        </div>
+
+        {% if form.errors %}
+            <div class="form_error">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form_group">
+                <label for="id_new_password1">Enter New Password</label>
+                <input type="password" name="new_password1" id="id_new_password1"
+                       placeholder="Enter your new password" required>
+            </div>
+            <div class="form_group">
+                <label for="id_new_password2">Confirm New Password</label>
+                <input type="password" name="new_password2" id="id_new_password2"
+                       placeholder="Re-enter your new password" required>
+            </div>
+            <button type="submit" class="password_btn">CHANGE PASSWORD</button>
+        </form>
+
+        {% else %}
+
+        <div class="password_header">
+            <h1>LINK EXPIRED</h1>
+            <p>This reset link is invalid or has already been used.</p>
+        </div>
+        <a href="{% url 'forgot_pass' %}" class="back_login">Request a new reset link</a>
+
+        {% endif %}
+
+        <a href="{% url 'login_' %}" class="back_login">← Back to Login</a>
+    </div>
+</div>
+{% endblock %}

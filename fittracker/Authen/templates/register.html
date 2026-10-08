@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'register.css' %}">
+{% endblock %}
+{% block content %}
+<div class="register_page">
+    <div class="register_card">
+        <div class="register_header">
+            <h1>REGISTER</h1>
+            <p>Create your gym account</p>
+        </div>
+        {% if error %}
+            <div class="form_error">
+                {{ error }}
+            </div>
+        {% endif %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form_group">
+                <label for="fname">First Name</label>
+                <input type="text" name="fname" id="fname" value="{{ form.fname }}" placeholder="Enter your first name" required>
+            </div>
+            <div class="form_group">
+                <label for="lname">Last Name</label>
+                <input type="text" name="lname" id="lname" value="{{ form.lname }}" placeholder="Enter your last name" required>
+            </div>
+            <div class="form_group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" value="{{ form.email }}" placeholder="Enter your email" required>
+            </div>
+            <div class="form_group">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" value="{{ form.username }}" placeholder="Enter a username" required>
+            </div>
+            <div class="form_group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Create a password" required>
+            </div>
+            <button type="submit" class="register_btn">CREATE ACCOUNT</button>
+        </form> 
+        <div class="login_link">Already have an account?
+            <a href="{% url 'login_' %}">Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

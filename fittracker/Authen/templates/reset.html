@@ -1,0 +1,55 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'reset.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="reset_page">
+    <div class="reset_card">
+        <div class="reset_header">
+            <h1>RESET PASSWORD</h1>
+            <p>Change your account password</p>
+        </div>
+        {% if error %}
+            <div class="form_error">
+                {{ error }}
+            </div>
+        {% endif %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="form_group">
+                <label for="username">
+                    Username
+                </label>
+                <input type="text" name="username" id="username" value="{{ request.user.username }}" readonly>
+            </div>
+            {% if new_pass %}
+                <div class="form_group">
+                    <label for="new_pass">
+                        Enter New Password
+                    </label>
+                    <input type="password" name="new_pass" id="new_pass" placeholder="Enter your new password" required>
+                </div>
+            {% else %}
+                <div class="form_group">
+                    <label for="old_pass">
+                        Enter Old Password
+                    </label>
+                    <input type="password" name="old_pass" id="old_pass" placeholder="Enter your current password" required>
+                </div>
+            {% endif %}
+            <button type="submit" class="reset_btn">
+                {% if new_pass %}
+                    CHANGE PASSWORD
+                {% else %}
+                    VERIFY PASSWORD
+                {% endif %}
+            </button>
+        </form>
+        <a href="{% url 'profile' %}" class="back_profile">← Back to Profile</a>
+    </div>
+</div>
+{% endblock %}

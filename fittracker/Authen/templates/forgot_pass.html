@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'forgot.css' %}">
+{% endblock %}
+{% block content %}
+<div class="forget_page">
+    <div class="forget_card">
+        <h1>FORGOT PASSWORD</h1>
+        <p class="forget_subtitle">Enter your username to reset your password</p>
+        {% if error %}
+            <div class="form_error">
+                {{ error }}
+            </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" placeholder="Enter your username" required>
+
+            <button type="submit" class="forget_btn">
+                CONTINUE
+            </button>
+        </form>
+        <a href="{% url 'login_' %}" class="back_login">← Back to Login</a>
+    </div>
+</div>
+
+{% endblock %}

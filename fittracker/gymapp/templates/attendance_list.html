@@ -1,0 +1,136 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'attendance.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page_header">
+    <div>
+        <h1>All Attendances</h1>
+        <p>Check members in and out.</p>
+    </div>
+
+    <a href="{% url 'add_attendance' %}">+ Add Attendance</a>
+</div>
+
+<div class="stats_row">
+    <div class="stat_card">
+        <div class="stat-label">Checked in today</div>
+        <div class="stat-number">{{ checked_in_today|default:0 }}</div>
+    </div>
+
+    <div class="stat_card">
+        <div class="stat-label">Inside now</div>
+        <div class="stat-number">{{ inside_now|default:0 }}</div>
+    </div>
+
+    <div class="stat_card">
+        <div class="stat-label">Total records</div>
+        <div class="stat-number">{{ attendances|length }}</div>
+    </div>
+</div>
+ <form action="" method="GET">
+        <input type="search" name="search"  value="{{ search }}"  class="search_bar" placeholder="Search by name, specialization or contact">
+        <button type="submit" class="search_btn">Search</button>
+    </form>
+<div class="card">
+
+    <h2>Attendance Directory</h2>
+    <div class="table_container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Member</th>
+                    <th>Check in</th>
+                    <th>Check out</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for attendance in attendances %}
+                <tr>
+
+                    <td>
+                        <div class="member_cell">
+                            <span class="avatar">
+                                {{ attendance.member.name|first|upper }}
+                            </span>
+
+                            <span>
+                                {{ attendance.member.name }}
+                            </span>
+                        </div>
+                    </td>
+
+                    <td>
+                        {{ attendance.check_in|date:"d M, h:i A" }}
+                    </td>
+
+                    <td>
+                        {% if attendance.check_out %}
+                            {{ attendance.check_out|date:"d M, h:i A" }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if attendance.check_out %}
+                            <span class="badge badge_gray">
+                                Checked out
+                            </span>
+                        {% else %}
+                            <span class="badge badge_green">
+                                In gym
+                            </span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if not attendance.check_out %}
+                            <form method="POST" action="{% url 'checkout_attendance' attendance.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="paid_btn">
+                                    Check Out
+                                </button>
+                            </form>
+                        {% else %}
+                            <span class="paid_text">
+                                ✓ Done
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form method="POST" action="{% url 'delete_attendance' attendance.id %}"
+                            style="display:inline"
+                            onsubmit="return confirm('Delete {{ member.name|escapejs }}? this will not Undo.');">
+                            {% csrf_token %}
+                            <button type="submit" class="delete_btn">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+
+                {% empty %}
+
+                <tr>
+                    <td colspan="5" class="empty">
+                        No attendance records yet.
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,378 @@
+.page_header {
+    width: 100%;
+    min-height: 100px;
+    margin-top: 10px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.page_header h1 {
+    font-size: 45px;
+    font-family: "Federant", serif;
+    font-weight: 700;
+    color: #080b0f;
+}
+
+.page_header p {
+    margin-top: 5px;
+    color: #718096;
+    font-size: 16px;
+    font-style: italic;
+}
+
+.page_header > a {
+    width: 200px;
+    height: 50px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #070707;
+    color: #38bdf8;
+
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+
+    border-radius: 10px;
+
+    transition: all 0.3s ease;
+}
+
+.page_header > a:hover {
+    background: #38bdf8;
+    color: #070707;
+    transform: translateY(-3px);
+
+    box-shadow: 0 8px 18px rgba(56, 189, 248, 0.3);
+}
+
+
+.stats_row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 15px;
+    margin: 15px 0 30px;
+}
+
+.stat_card {
+    width: 300px;
+    height: 125px;
+    padding: 18px 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+    border: 2px solid #c8dfef;
+    transition: 0.3s ease;
+}
+
+.stat-label {
+    margin: 0 0 5px;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #607386;
+}
+
+.stat-number {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 50px;
+    line-height: 1;
+    font-weight: 700;
+    color: #080c10;
+    transition: 0.3s ease;
+}
+
+.stat_card:hover {
+    background-color: #070707;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.stat_card:hover .stat-number {
+    color: #38bdf8;
+}
+
+
+.plan_grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 30px;
+    padding-bottom: 30px;
+}
+
+.plan_card {
+    width: 500px;
+    max-width: 100%;
+    background: #fff;
+    padding: 24px;
+    border-radius: 15px;
+    border: 2px solid #c8dfef;
+    font-family: "Segoe UI", sans-serif;
+    transition: 0.3s ease;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    align-items: center;
+    align-content: center;
+}
+
+.plan_card:hover {
+    background: #070707;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.plan_tag {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 30px;
+    background: #070707;
+    color: #38bdf8;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: 0.3s ease;
+}
+
+.plan_card:hover .plan_tag {
+    background: #38bdf8;
+    color: #070707;
+}
+
+.plan_card h2 {
+    grid-column: 1;
+    grid-row: 2;
+    margin: 14px 0 6px;
+    font-family: "Federant", serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #080b0f;
+    transition: 0.3s ease;
+}
+
+.plan_price {
+    grid-column: 1;
+    grid-row: 3;
+    margin-bottom: 0;
+    font-size: 40px;
+    font-weight: 700;
+    color: #080c10;
+    transition: 0.3s ease;
+}
+
+.plan_card:hover h2 {
+    color: #fff;
+}
+
+.plan_card:hover .plan_price {
+    color: #38bdf8;
+}
+
+.plan_details {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: center;
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.plan_details li {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 0;
+    border-top: 1px solid #d7e3eb;
+    font-size: 15px;
+    color: #111827;
+    transition: 0.3s ease;
+}
+
+.plan_details span {
+    color: #607386;
+}
+
+.plan_details strong {
+    color: inherit;
+}
+
+.plan_card:hover .plan_details li {
+    border-top-color: #2a3a48;
+    color: #fff;
+}
+
+.plan_edit {
+    grid-column: 1;
+    grid-row: 4;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    margin-top: 20px;
+    background: #070707;
+    color: #38bdf8;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.plan_edit:hover,
+.plan_card:hover .plan_edit {
+    background: #38bdf8;
+    color: #070707;
+}
+
+.plan_edit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(56, 189, 248, 0.3);
+}
+
+.delete_btn {
+    grid-column: 2;
+    grid-row: 4;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    margin-top: 20px;
+    padding: 0 18px;
+    background: #070707;
+    color: #38bdf8;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.plan_card:hover .delete_btn {
+    background: #38bdf8;
+    color: #070707;
+}
+
+.delete_btn:hover {
+    background: #38bdf8;
+    color: #070707;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(56, 189, 248, 0.3);
+}
+
+.empty_state {
+    width: 100%;
+    padding: 40px;
+    text-align: center;
+    background: #fff;
+    border-radius: 15px;
+    color: #718096;
+}
+
+
+@media (max-width: 768px) {
+
+    .page_header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .page_header h1 {
+        font-size: 32px;
+    }
+
+    .stats_row {
+        justify-content: center;
+    }
+
+    .stat_card {
+        height: 115px;
+    }
+
+    .stat-number {
+        font-size: 45px;
+    }
+
+    .plan_grid {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 560px) {
+
+    .plan_card {
+        width: 100%;
+        grid-template-columns: 1fr;
+    }
+
+    .plan_tag,
+    .plan_card h2,
+    .plan_price,
+    .plan_details,
+    .plan_edit,
+    .delete_btn {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .plan_details {
+        margin-top: 10px;
+    }
+
+    .delete_btn {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .page_header h1 {
+        font-size: 28px;
+    }
+
+    .page_header p {
+        font-size: 14px;
+    }
+
+    .stat_card {
+        width: 90%;
+        max-width: 300px;
+        height: 105px;
+    }
+
+    .stat-number {
+        font-size: 42px;
+    }
+
+    .plan_grid {
+        gap: 20px;
+    }
+
+    .plan_card h2 {
+        font-size: 26px;
+    }
+
+    .plan_price {
+        font-size: 34px;
+    }
+}

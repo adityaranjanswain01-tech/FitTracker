@@ -1,0 +1,55 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+{% endblock %}
+{% block content %}
+<div class="profile_page">
+    <div class="profile_card">
+        <div class="profile_header">
+            <div class="profile_avatar">
+                {{ request.user.username|first|upper }}
+            </div>
+            <h1>PROFILE</h1>
+            <p>Your account information</p>
+        </div>
+        <div class="profile_info">
+            <div class="profile_row">
+                <span class="profile_label">User</span>
+                <span class="profile_value">
+                    {{ request.user }}
+                </span>
+            </div>
+            <div class="profile_row">
+                <span class="profile_label">First Name</span>
+                <span class="profile_value">
+                    {{ request.user.first_name }}
+                </span>
+            </div>
+            <div class="profile_row">
+                <span class="profile_label">Last Name</span>
+                <span class="profile_value">
+                    {{ request.user.last_name }}
+                </span>
+            </div>
+            <div class="profile_row">
+                <span class="profile_label">Email</span>
+                <span class="profile_value">
+                    {{ request.user.email }}
+                </span>
+            </div>
+            <div class="profile_row">
+                <span class="profile_label">Username</span>
+                <span class="profile_value">
+                    {{ request.user.username }}
+                </span>
+            </div>
+        </div>
+        <div class="profile_actions">
+            <a href="{% url 'reset_pass' %}" class="profile_btn">CHANGE PASSWORD</a>
+            <a href="{% url 'update_profile' %}" class="profile_btn">Update Profile</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

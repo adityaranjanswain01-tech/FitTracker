@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'update_payment.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page_header">
+    <div>
+        <h1>Update Payment</h1>
+        <p>Correct the member or the amount paid.</p>
+    </div>
+    <a href="{% url 'payment_list' %}">Back to payments</a>
+</div>
+
+<div class="card form_card">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <label for="member">Member</label>
+            <select name="member" id="member" class="form-input" required>
+                {% for member in members %}
+                    <option value="{{ member.id }}"
+                        {% if payment.member_id == member.id %}selected{% endif %}>
+                        {{ member.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="field">
+            <label for="amount">Amount Paid</label>
+            <input type="number" name="amount" id="amount" class="form-input" value="{{ payment.amount|floatformat:'0' }}" min="1" required>
+        </div>
+        {% if error %}
+            <p class="form_error">{{ error }}</p>
+        {% endif %}
+        <div class="form_actions">
+            <button type="submit" class="add_btn">Update Payment</button>
+            <a href="{% url 'payment_list' %}" class="cnl">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

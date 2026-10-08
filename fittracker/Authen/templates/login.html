@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+{% endblock %}
+{% block content %}
+
+<div class="login_page">
+    <div class="login_card">
+        <h1>LOGIN</h1>
+        <p class="login_subtitle">
+            Login to access your gym dashboard
+        </p>
+        {% if error %}
+            <div class="form_error">
+                {{ error }}
+            </div>
+        {% endif %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" placeholder="Enter your username" required>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+            <button type="submit" class="login_btn">LOGIN</button>
+        </form>
+        <div class="login_links">
+            <a href="{% url 'forgot_pass' %}">Forgot Password?</a>
+            <a href="{% url 'reset_pass' %}">Reset Password</a>
+        </div>
+        <div class="signup_link">
+            Don't have an account?
+            <a href="{% url 'register' %}">Sign Up</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

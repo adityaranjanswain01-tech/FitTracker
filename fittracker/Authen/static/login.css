@@ -1,0 +1,133 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.login_page {
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 20px;
+}
+.login_card {
+    width: 100%;
+    max-width: 450px;
+    padding: 32px;
+    background: #fff;
+    border: 2px solid #c8dfef;
+    border-radius: 15px;
+    font-family: "Segoe UI", sans-serif;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+.login_card h1 {
+    margin-bottom: 8px;
+    text-align: center;
+    font-family: "Federant", serif;
+    font-size: 35px;
+    color: #080b0f;
+}
+.login_subtitle {
+    margin-bottom: 28px;
+    text-align: center;
+    color: #718096;
+    font-size: 14px;
+}
+.login_card label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #607386;
+}
+.login_card input {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 18px;
+    padding: 0 14px;
+    font: inherit;
+    font-size: 16px;
+    color: #111827;
+    border: 1px solid #d7e3eb;
+    border-radius: 10px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.login_card input:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+}
+.form_error {
+    margin-bottom: 18px;
+    padding: 10px 14px;
+    background: #ffe1e1;
+    color: #d62828;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+}
+.login_btn {
+    width: 100%;
+    height: 50px;
+    border: none;
+    background: #070707;
+    color: #38bdf8;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.login_btn:hover {
+    background: #38bdf8;
+    color: #070707;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(56, 189, 248, 0.3);
+}
+.login_links {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+.login_links a {
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+.login_links a:hover {
+    color: #38bdf8;
+    text-decoration: underline;
+}
+.signup_link {
+    margin-top: 8px;
+    padding-top: 18px;
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+    color: #718096;
+    font-size: 14px;
+}
+.signup_link a {
+    color: #2563eb;
+    font-weight: 600;
+    text-decoration: none;
+}
+.signup_link a:hover {
+    text-decoration: underline;
+}
+@media (max-width: 480px) {
+    .login_page {
+        padding: 20px 15px;
+    }
+    .login_card {
+        padding: 24px 20px;
+    }
+    .login_card h1 {
+        font-size: 30px;
+    }
+}

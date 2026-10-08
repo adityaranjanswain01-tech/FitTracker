@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'update_trainer.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page_header">
+    <div>
+        <h1>Update Trainer</h1>
+        <p>Edit the trainer's details below.</p>
+    </div>
+    <a href="{% url 'trainer_list' %}">Back to trainers</a>
+</div>
+
+<div class="card form_card">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" class="form-input" value="{{ trainer.name }}" required>
+        </div>
+        <div class="field">
+            <label for="specialization">Specialization</label>
+            <select name="specialization" id="specialization" class="form-input" required>
+                {% for value, label in specialization_choices %}
+                    <option value="{{ value }}" {% if trainer.specialization == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+        </div>
+        <div class="field">
+            <label for="contact">Contact</label>
+            <input type="text" name="contact" id="contact" class="form-input" value="{{ trainer.contact }}" required>
+        </div>
+        <div class="form_actions">
+            <button type="submit" class="add_btn">Update Trainer</button>
+            <a href="{% url 'trainer_list' %}" class="cnl">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

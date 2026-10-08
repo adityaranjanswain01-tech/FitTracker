@@ -1,0 +1,57 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'add_trainer.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page_header">
+    <div>
+        <h1>Add New Trainer</h1>
+        <p>Fill in the trainer's details below.</p>
+    </div>
+    <a href="{% url 'trainer_list' %}">Back to trainers</a>
+</div>
+
+<div class="card form_card">
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="Trainer name" required>
+        </div>
+
+        <div class="field">
+            <label for="specialization">Specialization</label>
+           <select id="specialization" name="specialization" class="form-input" required>
+                <option value="">Select specialization</option>
+                <option value="strength">Strength Training</option>
+                <option value="weight_loss">Weight Loss</option>
+                <option value="muscle_building">Muscle Building</option>
+                <option value="bodybuilding">Bodybuilding</option>
+                <option value="functional">Functional Training</option>
+                <option value="cardio">Cardio &amp; Endurance</option>
+                <option value="crossfit">CrossFit</option>
+                <option value="yoga">Yoga &amp; Flexibility</option>
+                <option value="hiit">HIIT Training</option>
+                <option value="sports">Sports Training</option>
+                <option value="group">Group Fitness</option>
+        </select>
+        </div>
+
+        <div class="field">
+            <label for="contact">Contact details</label>
+            <input type="tel" id="contact" name="contact" class="form-input" placeholder="10-digit phone number" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" title="Enter a 10-digit phone number" required>
+        </div>
+
+        <div class="form_actions">
+            <button type="submit" class="add_btn">Add Trainer</button><br><br>
+            <a href="{% url 'trainer_list' %}" class="cnl">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

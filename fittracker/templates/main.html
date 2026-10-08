@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fit_Tracker Gym App</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Courgette&family=Federant&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Titan+One&display=swap" rel="stylesheet">
+   {% block style %}
+    {% endblock %}
+</head>
+<body>
+    {% include 'nav.html' %}
+<div class="contents">
+    
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>

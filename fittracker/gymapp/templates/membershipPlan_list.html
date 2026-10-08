@@ -1,0 +1,80 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'membershipPlan.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page_header">
+    <div>
+        <h1>Membership Plans</h1>
+        <p>Pricing and duration of every plan, with how many members are on it.</p>
+    </div>
+    <a href="{% url 'add_plan' %}">+ Add Plan</a>
+</div>
+
+<div class="stats_row">
+    <div class="stat_card">
+        <div class="stat-label">Total plans</div>
+        <div class="stat-number">{{ total_plans }}</div>
+    </div>
+    <div class="stat_card">
+        <div class="stat-label">Members on a plan</div>
+        <div class="stat-number">{{ total_members }}</div>
+    </div>
+</div>
+
+<div class="plan_grid">
+    {% for plan in plans %}
+    <div class="plan_card">
+
+        <div class="plan_info">
+            <span class="plan_tag">
+                {% if plan.duration_days == 7 %}Weekly
+                {% elif plan.duration_days == 30 %}Monthly
+                {% elif plan.duration_days == 90 %}Quarterly
+                {% elif plan.duration_days == 365 %}Yearly
+                {% else %}{{ plan.duration_days }} days
+                {% endif %}
+            </span>
+
+            <h2>{{ plan.name }}</h2>
+
+            <div class="plan_price">
+                ₹{{ plan.price|floatformat:"0" }}
+            </div>
+        </div>
+
+        <div class="plan_content">
+            <ul class="plan_details">
+                <li>
+                    <span>Duration</span>
+                    <strong>{{ plan.duration_days }} days</strong>
+                </li>
+                <li>
+                    <span>Members</span>
+                    <strong>{{ plan.member_count }}</strong>
+                </li>
+            </ul>
+
+            <div class="plan_actions">
+                <a class="plan_edit" href="{% url 'update_plan' plan.id %}">Edit plan</a>
+                <form method="POST" action="{% url 'delete_plan' plan.id %}"
+                      style="display:inline"
+                      onsubmit="return confirm('Delete {{ member.name|escapejs }}? this will not Undo.');">
+                    {% csrf_token %}
+                    <button type="submit" class="delete_btn">Delete</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    {% empty %}
+    <div class="empty_state">No membership plans yet.</div>
+    {% endfor %}
+</div>
+{% endblock %}

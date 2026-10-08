@@ -1,0 +1,60 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'add_member.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page_header">
+    <div>
+        <h1>Add New Member</h1>
+        <p>Fill in the member's details below.</p>
+    </div>
+    <a href="{% url 'member_list' %}">Back to members</a>
+</div>
+
+<div class="card form_card">
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="Member name" required>
+        </div>
+
+        <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="Email" required>
+        </div>
+
+        <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" class="form-input" placeholder="10-digit phone number" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" title="Enter a 10-digit phone number" required>
+        </div>
+
+        <div class="field">
+            <label for="plan">Plan</label>
+            <select name="plan" id="plan" class="form-input" required>
+                <option value="">Select Plan</option>
+                {% for i in plans %}
+                    <option value="{{ i.id }}">{{ i.name }} - ₹{{ i.price|floatformat:"0" }} - {{ i.duration_days }} days</option>
+                {% endfor %}
+            </select>
+        </div>
+            <div class="field checkbox_field">
+                <label for="is_active">
+                    <input type="checkbox" id="is_active" name="is_active" checked>
+                    Active member
+                </label>
+            </div>
+        
+        <div class="form_actions">
+            <button type="submit" class="add_btn">Add Member</button>
+            <a href="{% url 'member_list' %}" class="cnl">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

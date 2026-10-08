@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'update_pf.css' %}">
+{% endblock %}
+{% block content %}
+<div class="page_header">
+    <div>
+        <h1>Edit Profile</h1>
+        <p>Update your account information.</p>
+    </div>
+    <a href="{% url 'profile' %}">Back to profile</a>
+</div>
+<div class="card form_card">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" class="form-input" value="{{ form.username }}" required>
+        </div>
+        <div class="field">
+            <label for="first_name">First name</label>
+            <input type="text" name="first_name" id="first_name" class="form-input" value="{{ form.first_name }}">
+        </div>
+        <div class="field">
+            <label for="last_name">Last name</label>
+            <input type="text" name="last_name" id="last_name" class="form-input" value="{{ form.last_name }}">
+        </div>
+        <div class="field">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" class="form-input" value="{{ form.email }}" required>
+        </div>
+        {% if error %}
+            <p class="form_error">{{ error }}</p>
+        {% endif %}
+        <div class="form_actions">
+            <button type="submit" class="add_btn">Save Changes</button>
+            <a href="{% url 'profile' %}" class="cnl">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

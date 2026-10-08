@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'add_payment.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page_header">
+    <div>
+        <h1>Add New Payment</h1>
+        <p>Record a payment for a member.</p>
+    </div>
+    <a href="{% url 'payment_list' %}">Back to payments</a>
+</div>
+
+<div class="card form_card">
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="field">
+            <label for="member">Member</label>
+            <select name="member" id="member" class="form-input" required>
+                <option value="">Select Member</option>
+                {% for member in members %}
+                    <option value="{{ member.id }}"
+                        {% if selected_member == member.id|stringformat:"s" %}selected{% endif %}>
+                        {{ member.name }} - ₹{{ member.left_to_pay|floatformat:"0" }} left to pay
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="amount">Amount Paid</label>
+            <input type="number" name="amount" id="amount" class="form-input" placeholder="Enter amount" min="1" required>
+        </div>
+
+        {% if error %}
+            <p class="form_error">{{ error }}</p>
+        {% endif %}
+
+        <div class="form_actions">
+            <button type="submit" class="add_btn">Add Payment</button>
+            <a href="{% url 'payment_list' %}" class="cnl">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

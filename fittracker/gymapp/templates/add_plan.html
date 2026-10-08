@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'add_plan.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page_header">
+    <div>
+        <h1>Add Membership Plan</h1>
+        <p>Create a new plan with its price and duration.</p>
+    </div>
+
+    <a href="{% url 'plan_list' %}">Back to Plans</a>
+</div>
+
+<div class="form_card">
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="name">Plan name</label>
+        <input type="text" name="name" id="name" value="{{ form.name }}" placeholder="e.g. Monthly Basic" required>
+
+        <label for="price">Price (₹)</label>
+        <input type="number" name="price" id="price" value="{{ form.price }}" placeholder="e.g. 1500" min="1" required>
+
+        <label for="duration_days">Duration (days)</label>
+        <input type="number" name="duration_days" id="duration_days" value="{{ form.duration_days }}" placeholder="e.g. 30" min="1" required>
+
+        <p class="form_hint">Common durations: 7 (weekly), 30 (monthly), 90 (quarterly), 365 (yearly).</p>
+
+        {% if error %}
+            <p class="form_error">{{ error }}</p>
+        {% endif %}
+
+        <button type="submit" class="form_btn">Add Plan</button>
+    </form>
+</div>
+
+{% endblock %}

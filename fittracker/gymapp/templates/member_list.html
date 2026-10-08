@@ -1,0 +1,112 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'member_list.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page_header">
+    <div>
+        <h1>GYM MEMBERS</h1>
+        <p>Total members, Weekly Members, Yearly Members, Quarterly Member at a glance.</p>
+    </div>
+    <a href="{% url 'add_member' %}">+ Add member</a>
+</div>
+
+<div class="stats_row">
+    <div class="stat_card">
+        <div class="stat-label">TOTAL MEMBERS</div>
+        <div class="stat-number">{{ total_members }}</div>
+    </div>
+    <div class="stat_card">
+        <div class="stat-label">Weekly Members</div>
+        <div class="stat-number">{{ weekly_members }}</div>
+    </div>
+    <div class="stat_card">
+        <div class="stat-label">Monthly Members</div>
+        <div class="stat-number">{{ monthly_members }}</div>
+    </div><div class="stat_card">
+        <div class="stat-label">Quarterly Members</div>
+        <div class="stat-number">{{ quarterly_members }}</div>
+    </div><div class="stat_card">
+        <div class="stat-label">Yearly Members</div>
+        <div class="stat-number">{{ yearly_members }}</div>
+    </div>
+</div>
+    <form action="" method="GET">
+        <input type="search" name="search" class="search_bar" placeholder="Search by name, specialization or contact">
+        <button type="submit" class="search_btn">Search</button>
+    </form>
+<div class="card">
+    <h2>Member directory</h2>
+
+    <div class="table_container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Member</th>
+                    <th>Plan</th>
+                    <th>Price</th>
+                    <th>Contact</th>
+                    <th>Duration</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+     <tbody>
+    {% for member in members %}
+    <tr>
+        <td>
+            <div class="member_cell">
+                <span class="avatar">{{ member.name|first|upper }}</span>
+                <span>{{ member.name }}</span>
+            </div>
+        </td>
+
+        <td>{{ member.plan.name }}</td>
+
+        <td>
+            <span class="badge badge_green">
+                ₹{{ member.plan.price }}
+            </span>
+        </td>
+
+        <td>
+            <div>{{ member.email }}</div>
+            <div class="phone">{{ member.phone }}</div>
+        </td>
+
+        <td>
+            <span class="badge badge_blue">
+                {{ member.plan.duration_days }} Days
+            </span>
+        </td>
+
+        <td>
+            <a href="{% url 'update_member' member.id %}" class="edit_btn">
+                Edit
+            </a>
+        </td>
+            <td>
+                <form method="POST" action="{% url 'delete_member' member.id %}"
+                      style="display:inline"
+                      onsubmit="return confirm('Delete {{ member.name|escapejs }}? this will not Undo.');">
+                    {% csrf_token %}
+                    <button type="submit" class="delete_btn">Delete</button>
+                </form>
+            </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="6" class="empty">
+            No members yet. Add your first member!
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

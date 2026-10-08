@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'add_attendance.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page_header">
+    <div>
+        <h1>Add Attendance</h1>
+        <p>Check a member in.</p>
+    </div>
+    <a href="{% url 'attendance_list' %}">Back to attendance</a>
+</div>
+
+<div class="card form_card">
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="field">
+            <label for="member">Member</label>
+            <select name="member" id="member" class="form-input" required>
+                <option value="">Select Member</option>
+                {% for member in members %}
+                    <option value="{{ member.id }}">{{ member.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form_actions">
+            <button type="submit" class="add_btn">Check In</button>
+            <a href="{% url 'attendance_list' %}" class="cnl">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'payment_list.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page_header">
+    <div>
+        <h1>All Payments</h1>
+        <p>Track member payments, pending dues and upcoming renewals.</p>
+    </div>
+    <a href="{% url 'add_payment' %}">+ Add New Payment</a>
+</div>
+<div class="stats_row">
+    <div class="stat_card">
+        <div class="stat-label">Collected this month</div>
+        <div class="stat-number">₹{{ collected_this_month|floatformat:"-2" }}</div>
+    </div>
+    <div class="stat_card">
+        <div class="stat-label">Total pending members</div>
+        <div class="stat-number">{{ pending_members }}</div>
+    </div>
+    <div class="stat_card">
+        <div class="stat-label">Total pending</div>
+        <div class="stat-number">₹{{ total_pending|floatformat:"-2" }}</div>
+    </div>
+    <div class="stat_card">
+        <div class="stat-label">Total payment</div>
+        <div class="stat-number">₹{{ total_payment|floatformat:"-2" }}</div>
+    </div>
+    <div class="stat_card">
+        <div class="stat-label">Expiring this week</div>
+        <div class="stat-number">{{ expiring_soon }}</div>
+    </div>
+</div>
+
+<form action="" method="GET">
+    <input type="search" name="search" class="search_bar" placeholder="Search by name or contact">
+    <button type="submit" class="search_btn">Search</button>
+</form>
+
+<div class="card">
+    <h2>Payment Directory</h2>
+    <div class="table_container">
+<table>
+    <thead>
+        <tr>
+            <th>Member</th>
+            <th>Contact</th>
+            <th>Plan</th>
+            <th>Amount paid</th>
+            <th>Amount left to pay</th>
+            <th>Status</th>
+            <th>Total amount paid</th>
+            <th>Plan status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for member in members %}
+        <tr>
+            <td>
+                <div class="member_cell">
+                    <span class="avatar">{{ member.name|first|upper }}</span>
+                    <span>{{ member.name }}</span>
+                </div>
+            </td>
+            <td>
+                <div>{{ member.email }}</div>
+                <div class="phone">{{ member.phone }}</div>
+            </td>
+            <td>
+                <div>{{ member.plan.name|default:"—" }}</div>
+                {% if member.plan_id %}<div class="phone">₹{{ member.price|floatformat:"0" }}</div>{% endif %}
+            </td>
+            <td><span class="badge badge_green">₹{{ member.last_paid|floatformat:"0" }}</span></td>
+            <td>
+                {% if member.left_to_pay > 0 %}
+                    <span class="badge badge_red">₹{{ member.left_to_pay|floatformat:"0" }}</span>
+                {% else %}
+                    <span class="badge badge_gray">₹0</span>
+                {% endif %}
+            </td>
+
+            <td>
+                {% if member.status_key == 'pending' %}
+                    <span class="badge badge_red">Pending</span>
+                {% elif member.status_key == 'paid' %}
+                    <span class="badge badge_green">Paid</span>
+                {% else %}
+                    <span class="badge badge_gray">No payment</span>
+                {% endif %}
+            </td>
+
+            <td><span class="badge badge_blue">₹{{ member.total_paid|floatformat:"0" }}</span></td>
+
+            <td>
+                {% if member.plan_status == 'active' %}
+                    <span class="badge badge_green">Active</span>
+                {% elif member.plan_status == 'expiring' %}
+                    <span class="badge badge_amber">Expiring</span>
+                {% elif member.plan_status == 'expired' %}
+                    <span class="badge badge_red">Expired</span>
+                {% elif member.plan_status == 'inactive' %}
+                    <span class="badge badge_gray">Inactive</span>
+                {% else %}
+                    <span class="badge badge_gray">No plan</span>
+                {% endif %}
+                {% if member.expiry_date %}
+                    <div class="phone">Ends {{ member.expiry_date|date:"d M Y" }}</div>
+                {% endif %}
+            </td>      
+        <td>
+            {% if member.left_to_pay > 0 %}
+                <a class="paid_btn" href="{% url 'add_payment' %}?member={{ member.id }}">Add payment</a>
+            {% elif member.plan_id and member.total_paid > 0 %}
+                <span class="badge badge_green">Fully paid</span>
+            {% endif %}
+        
+            {% with latest=member.payment_set.last %}
+                {% if latest %}
+                    <a class="edit_btn" href="{% url 'update_payment' latest.id %}">Edit</a>
+                    <form method="POST" action="{% url 'delete_payment' latest.id %}"
+                      style="display:inline"
+                      onsubmit="return confirm('Delete {{ member.name|escapejs }}? this will not Undo.');">
+                    {% csrf_token %}
+                    <button type="submit" class="delete_btn">Delete</button>
+                </form>
+                {% endif %}
+            {% endwith %}
+        </td>
+    </tr>
+        {% empty %}
+        <tr>
+            <td colspan="9" class="empty">No members found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    </div>
+
+</div>
+
+{% endblock %}

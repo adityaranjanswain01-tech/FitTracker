@@ -1,0 +1,124 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'about.css' %}">
+
+<section class="about_hero">
+    <span class="about_tag">About us</span>
+    <h1>Run your gym with <em>Fittracker</em></h1>
+    <p>
+        Fittracker is a simple gym management system that keeps your members,
+        trainers, payments, attendance and membership plans in one place.
+    </p>
+    <div class="about_hero_actions">
+        <a href="{% url 'home' %}" class="about_btn">Go to dashboard</a>
+        <a href="{% url 'plan_list' %}" class="about_btn about_btn_light">View plans</a>
+    </div>
+</section>
+
+<section class="about_stats">
+    <div class="about_stat">
+        <h3>100%</h3>
+        <p>Paperless records</p>
+    </div>
+    <div class="about_stat">
+        <h3>24/7</h3>
+        <p>Access to your data</p>
+    </div>
+    <div class="about_stat">
+        <h3>5+</h3>
+        <p>Modules in one app</p>
+    </div>
+    <div class="about_stat">
+        <h3>1 click</h3>
+        <p>To manage anything</p>
+    </div>
+</section>
+
+<section class="about_section">
+    <div class="about_section_head">
+        <h2>What you can manage</h2>
+        <p>Everything a gym owner needs, without the spreadsheets.</p>
+    </div>
+
+    <div class="about_features">
+        <div class="about_card">
+            <span class="about_icon">01</span>
+            <h3>Members</h3>
+            <p>Add, update and track every member along with their plan and joining details.</p>
+        </div>
+        <div class="about_card">
+            <span class="about_icon">02</span>
+            <h3>Trainers</h3>
+            <p>Keep trainer profiles organised and know who is handling which members.</p>
+        </div>
+        <div class="about_card">
+            <span class="about_icon">03</span>
+            <h3>Payments</h3>
+            <p>Record fees, see payment history and never lose track of pending dues.</p>
+        </div>
+        <div class="about_card">
+            <span class="about_icon">04</span>
+            <h3>Attendance</h3>
+            <p>Mark daily attendance and review how regularly members show up.</p>
+        </div>
+        <div class="about_card">
+            <span class="about_icon">05</span>
+            <h3>Plans</h3>
+            <p>Create weekly, monthly, quarterly or yearly plans and see how many members are on each.</p>
+        </div>
+        <div class="about_card">
+            <span class="about_icon">06</span>
+            <h3>Secure access</h3>
+            <p>Login-protected pages so only authorised staff can view and edit your data.</p>
+        </div>
+    </div>
+</section>
+
+<section class="about_split">
+    <div class="about_split_text">
+        <h2>Our mission</h2>
+        <p>
+            We built Fittracker to take the paperwork out of running a gym, so
+            owners can spend less time on records and more time helping people
+            reach their fitness goals.
+        </p>
+        <ul class="about_list">
+            <li>Simple and fast to use</li>
+            <li>Clear view of members and payments</li>
+            <li>Works on desktop, tablet and mobile</li>
+        </ul>
+    </div>
+
+    <div class="about_steps">
+        <div class="about_step">
+            <span>1</span>
+            <div>
+                <h4>Create your plans</h4>
+                <p>Set up the membership plans you offer.</p>
+            </div>
+        </div>
+        <div class="about_step">
+            <span>2</span>
+            <div>
+                <h4>Add members and trainers</h4>
+                <p>Register people and assign them to plans.</p>
+            </div>
+        </div>
+        <div class="about_step">
+            <span>3</span>
+            <div>
+                <h4>Track payments and attendance</h4>
+                <p>Stay on top of fees and daily visits.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about_cta">
+    <h2>Ready to get started?</h2>
+    <p>Jump into your dashboard and start managing your gym today.</p>
+    <a href="{% url 'home' %}" class="about_btn">Open dashboard</a>
+</section>
+{% endblock %}

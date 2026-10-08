@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'update_plan.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page_header">
+    <div>
+        <h1>Update Plan</h1>
+        <p>Edit the plan's price and duration.</p>
+    </div>
+    <a href="{% url 'plan_list' %}">Back to plans</a>
+</div>
+<div class="card form_card">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <label for="name">Plan name</label>
+            <input type="text" name="name" id="name" class="form-input" value="{{ plan.name }}" required>
+        </div>
+        <div class="field">
+            <label for="price">Price (₹)</label>
+            <input type="number" name="price" id="price" class="form-input" value="{{ plan.price|floatformat:'0' }}" min="1" required>
+        </div>
+        <div class="field">
+            <label for="duration_days">Duration (days)</label>
+            <input type="number" name="duration_days" id="duration_days" class="form-input" value="{{ plan.duration_days }}" min="1" required>
+        </div>
+        {% if error %}
+            <p class="form_error">{{ error }}</p>
+        {% endif %}
+        <div class="form_actions">
+            <button type="submit" class="add_btn">Update Plan</button>
+            <a href="{% url 'plan_list' %}" class="cnl">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

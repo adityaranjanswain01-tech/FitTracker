@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'update_member.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page_header">
+    <div>
+        <h1>Update Member</h1>
+        <p>Edit the member's details below.</p>
+    </div>
+    <a href="{% url 'member_list' %}">Back to members</a>
+</div>
+
+<div class="form_card">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" class="form-input" value="{{ member.name }}" placeholder="Member name" required>
+        </div>
+        <div class="field">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" class="form-input" value="{{ member.email }}" placeholder="Email" required>
+        </div>
+        <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" name="phone" id="phone" class="form-input" value="{{ member.phone }}" placeholder="10-digit phone number" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" title="Enter a 10-digit phone number" required>
+        </div>
+        <div class="field">
+            <label for="plan">Plan</label>
+            <select name="plan" id="plan" class="form-input" required>
+                <option value="">Select Plan</option>
+                {% for i in plans %}
+                    <option value="{{ i.id }}"
+                        {% if member.plan_id == i.id %}selected{% endif %}>
+                        {{ i.name }} - ₹{{ i.price|floatformat:"0" }} - {{ i.duration_days }} days
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="field checkbox_field">
+            <label for="is_active">
+                <input type="checkbox" id="is_active" name="is_active" {% if member.is_active %}checked{% endif %}>
+                Active member
+            </label>
+        </div>
+        <div class="form_actions">
+            <button type="submit" class="add_btn">Update Member</button>
+            <a href="{% url 'member_list' %}" class="cnl">Cancel</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page_header">
+    <div>
+        <h1>Today on the floor</h1>
+        <p>Check-ins, payments and expiring plans at a glance.</p>
+    </div>
+
+    <a href="{% url 'add_member' %}">+ Add member</a>
+</div>
+
+<div class="stats_row">
+    <div class="stat_card">
+        <div class="stat-label">Checked in today</div>
+        <div class="stat-number">{{ checked_in_today }}</div>
+    </div>
+    <div class="stat_card">
+        <div class="stat-label">Total collection</div>
+        <div class="stat-number">₹{{ total_collection|floatformat:"0" }}</div>
+    </div>
+    <div class="stat_card">
+        <div class="stat-label">Total members</div>
+        <div class="stat-number">{{ total_members }}</div>
+    </div>
+
+    <div class="stat_card">
+        <div class="stat-label">Expiring this week</div>
+        <div class="stat-number">{{ expiring_soon }}</div>
+    </div>
+
+    <div class="stat_card">
+        <div class="stat-label">Pending dues</div>
+        <div class="stat-number">₹{{ pending_amount|floatformat:"0" }}</div>
+    </div>
+
+    <div class="stat_card">
+        <div class="stat-label">Collected this month</div>
+        <div class="stat-number">₹{{ collected_this_month|floatformat:"0" }}</div>
+    </div>
+</div>
+
+ <form action="" method="GET">
+        <input type="search" name="search" class="search_bar" placeholder="Search by name, specialization or contact">
+        <button type="submit" class="search_btn">Search</button>
+    </form>
+<div class="card">
+
+    <h2>Recent check-ins</h2>
+   
+    <div class="table_container">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Member</th>
+                    <th>Check-in Time</th>
+                    <th>Check-in Status</th>
+                    <th>Check-out Time</th>
+                    <th>Check-out Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for attendance in recent_checkins %}
+                <tr>
+
+                    <td>
+                        <div class="member_cell">
+                            <span class="avatar">
+                                {{ attendance.member.name|first|upper }}
+                            </span>
+
+                            <span>
+                                {{ attendance.member.name }}
+                            </span>
+                        </div>
+                    </td>
+
+                    <td>
+                        {{ attendance.check_in|date:"d M, h:i A" }}
+                    </td>
+
+                    <td>
+                        <span class="badge badge_green">
+                            Checked in
+                        </span>
+                    </td>
+
+                    <td>
+                        {% if attendance.check_out %}
+                            {{ attendance.check_out|date:"d M, h:i A" }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if attendance.check_out %}
+                            <span class="badge badge_gray">
+                                Checked out
+                            </span>
+                        {% else %}
+                            <span class="badge badge_red">
+                                Still Checked In
+                            </span>
+                        {% endif %}
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+                    <td colspan="5" class="empty">
+                        No members checked in yet.
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
